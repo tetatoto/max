@@ -136,7 +136,7 @@ $url_dom = getPageContent($url, $proxy);
 		<h2>The images seems to be : </h2>
 		<?php
 		// Executing the phantomJS script which creates the file urls_images.txt 
-		$command_line ='./phantomjs script3.js '.'"'.$url_images.'"';
+		$command_line ='phantomjs script3.js '.'"'.$url_images.'"';
 		echo '<h3>Command line </h3>';
 		echo $command_line;
 		echo '<br>';
@@ -158,10 +158,10 @@ $url_dom = getPageContent($url, $proxy);
 			echo '<br>';
 			// $imageData = base64_encode(file_get_contents($urls_array[$i]));
 			// echo '<img src="data:image/jpeg;base64,'.$imageData.'">';
-			$url_here = 'http://external-images.premiere.fr/var/premiere/storage/images/public/photos-people/photos-rosamund-pike-james-bond-girl-c-est-tres-cool-de-faire-partie-du-club-3532676/rosamund-pike5/64226162-1-fre-FR/Rosamund-Pike.jpg?itok';
-			$image = 'video_outputs/image_test_2.jpg';
+			$url_here = $urls_array[$i];
+			//$image = 'video_outputs/image_test_2.jpg';
 			// $url_here = $urls_array[$i];
-			// $image = 'video_outputs/image'.$i.'.jpg';
+			$image = 'video_outputs/image'.$i.'.jpg';
 			
 			// file_put_contents($image, file_get_contents($url_here));
 			$giving_auth_2 = shell_exec('chmod -R 777 video_outputs');
@@ -172,6 +172,8 @@ $url_dom = getPageContent($url, $proxy);
 			curl_exec($ch);
 			curl_close($ch);
 			fclose($fp);
+			
+			echo "<img src='".$image."' alt='error'>";
 		}
 
 		?>

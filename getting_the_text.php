@@ -1,3 +1,4 @@
+
 <?php
 include_once("php_config.php");
 include_once("simple_html_dom.php");
@@ -117,7 +118,7 @@ $url_dom = getPageContent($url, $proxy);
 				$voice = $tts->speech([
 					'key' => 'b3a50426f7914067aa6d40ce1d46ae71',
 					'hl' => 'fr-fr',
-					'src' => 'Fait le beau Max ! Bon chien !',
+					'src' => $text_to_read,
 					'r' => '0',
 					'c' => 'mp3',
 					'f' => '44khz_16bit_stereo',
@@ -125,8 +126,8 @@ $url_dom = getPageContent($url, $proxy);
 					'b64' => 'true'
 				]);
 
-				file_put_contents('audio_voicerss.mp3', base64_decode($voice['response']));
-				echo '<h3> Done ;) </h3>';
+				file_put_contents('audio_outputs/audio_voice_rss.mp3', base64_decode($voice['response']));
+				echo '<h3> MP3 recording is done  </h3>';
 
 				//print_r($voice);
 				//echo '<audio src="' . $voice['response'] . '" autoplay="autoplay"></audio>';

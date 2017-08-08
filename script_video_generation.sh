@@ -7,7 +7,7 @@ video_duration="$(mp3info -p "%S\n" audio_outputs/audio_voice_rss.mp3)"
 echo "***************************************************************"
 echo "STARTING THE GENERATION OF THE FULL VIDEO"
 echo "_______________________________________________________________"
-echo "The duration of the video is $video_duration seconds "
+echo "The duration of the video is $video_duration seconds\n "
 
 
 # FIRST STEP : creating a loop with the template video in order to reach the right duration (given in argument)
@@ -15,8 +15,8 @@ echo "The duration of the video is $video_duration seconds "
 let 'template_duration=13'
 let 'current_duration=0'
 
-echo "The duration of the template is $template_duration seconds"
-echo "_______________________________________________________________"
+echo "The duration of the template is $template_duration seconds\n"
+echo "______________________________________________________________\n_"
 
 # 1.1 // loop to get the full duration video
 
@@ -32,11 +32,11 @@ done
 
 ffmpeg -f concat -i mylist.txt -c copy video_outputs/generated_video.mp4
 
-echo "final duration is $current_duration"
+echo "final duration is $current_duration \n"
 
 # 1.2 // Adding the sound file to the video
 
-ffmpeg -i "video_outputs/generated_video.mp4" -i "audio_outputs/audio_voice_rss.mp3" -codec copy -shortest "video_outputs/generated_video_with_sound.mp4"
+ffmpeg -i "video_outputs/generated_video.mp4" -i "audio_outputs/audio_voice_rss.mp3" -c copy -shortest -map 0:v0 -map 1:a:0 "video_outputs/generated_video_with_sound.mp4"
 
 # SECOND STEP : Adding images to the background on the top right corner of the video
 

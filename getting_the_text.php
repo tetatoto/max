@@ -112,7 +112,8 @@ $url_dom = getPageContent($url, $proxy);
 
 				//creating the audio file from the text file "mydata2.txt" 
 				echo '<h1>Voice RSS Reading text </h1>';
-				$text_to_read = file_get_contents('text_outputs\mydata2.txt');
+				$text_to_read_pre = file_get_contents('text_outputs\mydata2.txt');
+				$text_to_read = str_replace("\"", " ", $text_to_read_pre);
 
 				echo $text_to_read;
 				echo '<br>';

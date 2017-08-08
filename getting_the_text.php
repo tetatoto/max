@@ -189,7 +189,7 @@ $url_dom = getPageContent($url, $proxy);
 
 		?>
 
-	<form action="/video_display.php">
+	<form action="video_display.php">
 		<input type="submit" value="Submit">
 	</form> 
 		

@@ -28,6 +28,10 @@ function getPageContent($url, $proxy) {
     return $dom;
 }
 
+// Cleaning the folder used later in this file
+$cleaning_message = shell_exec("/var/www/html/max/cleaning_script.sh 2>&1");
+print_r($cleaning_message);
+
 /*This value contains the link to the artcile choosen during the previous step*/
 $url = $_POST["article"];
 /*We extract the text content of the title */
@@ -162,7 +166,7 @@ $url_dom = getPageContent($url, $proxy);
 			$url_here = $urls_array[$i];
 			//$image = 'video_outputs/image_test_2.jpg';
 			// $url_here = $urls_array[$i];
-			$image = 'video_outputs/image'.$i.'.jpg';
+			$image = 'picture_outputs/image'.$i.'.jpg';
 			
 			// file_put_contents($image, file_get_contents($url_here));
 			$giving_auth_2 = shell_exec('chmod -R 777 video_outputs');

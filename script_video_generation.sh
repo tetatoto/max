@@ -36,6 +36,8 @@ echo "final duration is $current_duration"
 
 # 1.2 // Adding the sound file to the video
 
+ffmpeg -i "video_outputs/generated_video.mp4" -i "audio_outputs/audio_voice_rss.mp3" -codec copy -shortest "video_outputs/generated_video_with_sound.mp4"
+
 # SECOND STEP : Adding images to the background on the top right corner of the video
 
 # 2.1 // 

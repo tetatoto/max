@@ -180,8 +180,18 @@ $url_dom = getPageContent($url, $proxy);
 			
 			echo "<img src='".$image."' alt='error'>";
 		}
+		
+		echo '<h3> Now generating the video from all the data we got </h3>';
+		$videogen_message = shell_exec("/var/www/html/max/script_video_generation.sh 2>&1");
+		print_r($videogen_message);
+
+		echo '<h3> Do you want to see the video ? Click there ! </h3>';
 
 		?>
+
+	<form action="/video_display.php">
+		<input type="submit" value="Submit">
+	</form> 
 		
 	</body>
 </html>

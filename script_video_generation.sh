@@ -43,7 +43,7 @@ ffmpeg -i "video_outputs/generated_video.mp4" -i "audio_outputs/audio_voice_rss.
 # 2.1 // Converting images to the right size 
 
 echo 'CONVERTING IMAGES IN SMALLER ONES'
-mogrify -resize 300x250 picture_outputs/*.jpg
+mogrify -resize 320x210 picture_outputs/*.jpg
 echo 'END CONVERTION'
 
 # 2.2 // Adding resized images to the video with ffmpeg
@@ -51,14 +51,14 @@ echo 'END CONVERTION'
 let 'current_timeline=0'
 let 'image_cursor=0'
 
-#while [ $current_timeline -lt $video_duration ]
-#do
-#	let 'next=current_timeline+10'
-	ffmpeg -y -i video_outputs/generated_video_with_sound.mp4 -i "picture_outputs/image${image_cursor}.jpg" -filter_complex "[0:v][1:v] overlay=640-284-20:5:enable='between(t,0,20)'" -pix_fmt yuv420p -c:a copy video_outputs/generated_video_with_images.mp4
-#	((current_timeline=current_timeline+10))
-#	((image_cursor++))
-#
-#done
+
+while [ $current_timeline -lt $video_duration ]
+do
+	let 'next=current_timeline+30'
+	ffmpeg -y -i video_outputs/generated_video_with_sound.mp4 -i "picture_outputs/image${image_cursor}.jpg" -filter_complex "[0:v][1:v] overlay=640-360-3:3:enable='between(t,${current_timeline},${next})'" -pix_fmt yuv420p -c:a copy video_outputs/generated_video_with_sound.mp4;
+	((current_timeline=current_timeline+30));
+	((image_cursor++))
+done
 
 
 

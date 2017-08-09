@@ -113,7 +113,7 @@ $url_dom = getPageContent($url, $proxy);
 				//creating the audio file from the text file "mydata2.txt" 
 				echo '<h1>Voice RSS Reading text </h1>';
 				$text_to_read_pre = file_get_contents('text_outputs\mydata2.txt');
-				$text_to_read = str_replace("\"", " ", $text_to_read_pre);
+				$text_to_read = str_replace('"', '', $text_to_read_pre);
 
 				echo $text_to_read;
 				echo '<br>';
@@ -158,7 +158,7 @@ $url_dom = getPageContent($url, $proxy);
 		// $urls_array = explode(" ", $phantom_response);
 		$urls_array = preg_split("/[^\w]*([\s]+[^\w]*|$)/", $phantom_response, -1, PREG_SPLIT_NO_EMPTY);
 		$number_images_found = count($urls_array);
-		for ($i=0; (($i < $number_images_found) && ($i <10)); $i++) { 
+		for ($i=0; (($i < $number_images_found) && ($i <25)); $i++) { 
 			echo '<h4> Url of the image  </h4>';
 			echo $urls_array[$i];
 			echo '<br>';
@@ -182,9 +182,16 @@ $url_dom = getPageContent($url, $proxy);
 			echo "<img src='".$image."' alt='error'>";
 		}
 		
+		echo '<h3> Giving permissions to pictures </h3';
+		// Giving permission to modify the pictures
+		$permission_message = shell_exec('chmod 777 picture_outputs/*');
+		// var_dump($permission_message);
+
+
+		
 		echo '<h3> Now generating the video from all the data we got </h3>';
 		$videogen_message = shell_exec("/var/www/html/max/script_video_generation.sh 2>&1");
-		print_r($videogen_message);
+		var_dump($videogen_message);
 
 		echo '<h3> Do you want to see the video ? Click there ! </h3>';
 

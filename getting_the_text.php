@@ -158,28 +158,33 @@ $url_dom = getPageContent($url, $proxy);
 		// $urls_array = explode(" ", $phantom_response);
 		$urls_array = preg_split("/[^\w]*([\s]+[^\w]*|$)/", $phantom_response, -1, PREG_SPLIT_NO_EMPTY);
 		$number_images_found = count($urls_array);
+		$count = 0;
 		for ($i=0; (($i < $number_images_found) && ($i <25)); $i++) { 
 			echo '<h4> Url of the image  </h4>';
 			echo $urls_array[$i];
 			echo '<br>';
-			// $imageData = base64_encode(file_get_contents($urls_array[$i]));
-			// echo '<img src="data:image/jpeg;base64,'.$imageData.'">';
 			$url_here = $urls_array[$i];
-			//$image = 'video_outputs/image_test_2.jpg';
-			// $url_here = $urls_array[$i];
-			$image = 'picture_outputs/image'.$i.'.jpg';
+			$image_type = substr($url_here, -4);
+			if ($image_type == ".jpg")
+			{
 			
-			// file_put_contents($image, file_get_contents($url_here));
-			$giving_auth_2 = shell_exec('chmod -R 777 video_outputs');
-			$ch = curl_init($url_here);
-			$fp = fopen($image, 'wb');
-			curl_setopt($ch, CURLOPT_FILE, $fp);
-			curl_setopt($ch, CURLOPT_HEADER, 0);
-			curl_exec($ch);
-			curl_close($ch);
-			fclose($fp);
+				$image = 'picture_outputs/image'.$count.'.jpg';
 			
-			echo "<img src='".$image."' alt='error'>";
+				$giving_auth_2 = shell_exec('chmod -R 777 video_outputs');
+				$ch = curl_init($url_here);
+				$fp = fopen($image, 'wb');
+				curl_setopt($ch, CURLOPT_FILE, $fp);
+				curl_setopt($ch, CURLOPT_HEADER, 0);
+				curl_exec($ch);
+				curl_close($ch);
+				fclose($fp);
+			
+				echo "<img src='".$image."' alt='error'>";
+				$count++;
+			}
+			else {
+				echo 'this image is not in the right format for the video';
+			}
 		}
 		
 		echo '<h3> Giving permissions to pictures </h3';
